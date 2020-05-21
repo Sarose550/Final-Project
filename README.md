@@ -1,7 +1,8 @@
 # Final-Project
 Sam Rosenstrauch and Jude Rizzo
 
-##Features to be added:
+Features to be added:
+
 -Mesh
 -New primitive shapes
 -Tween
