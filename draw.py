@@ -208,39 +208,22 @@ def add_cone(polygons, cx, cy, cz, r, height, step):
     while i <= step:
         theta = float(i)/step
         x1 = r * math.cos(2*math.pi * theta) + cx
-        y1 = cy - height
+        y1 = cy
         z1 = r * math.sin(2*math.pi * theta) + cz
 
         i += 1
         theta = float(i)/step
 
         x2 = r * math.cos(2*math.pi * theta) + cx
-        y2 = cy - height
+        y2 = cy
         z2 = r * math.sin(2*math.pi * theta) + cz
-        add_polygon(polygons, cx, cy, cz, x2, y2, z2, x1, y1, z1)#build the base
+        add_polygon(polygons, cx, cy + height, cz, x2, y2, z2, x1, y1, z1)#build the base
 
         add_polygon(polygons, x1, y1, z1, x2, y2, z2, cx, cy + height, cz)#build the lateral surface
 
 
 def add_pyramid(polygons, cx, cy, cz, side, height):
-    i = 0
-    step = 4
-    r = side / 2
-    # basically just a low effort cone
-    while i <= step:
-        theta = float(i)/step
-        x1 = r * math.cos(2*math.pi * theta) + cx
-        y1 = cy + height
-        z1 = r * math.sin(2*math.pi * theta) + cz
-        i += 1
-        theta = float(i)/step
-
-        x2 = r * math.cos(2*math.pi * theta) + cx
-        y2 = cy + height
-        z2 = r * math.sin(2*math.pi * theta) + cz
-        add_polygon(polygons, cx, cy, cz, x2, y2, z2, x1, y1, z1)#build the base
-
-        add_polygon(polygons, x1, y1, z1, x2, y2, z2, cx, cy + height, cz)#build the lateral surface
+    add_cone(polygons, cx, cy, cz, side/2, height, 4)
 
 def add_cylinder(polygons, cx, cy, cz, r, height, step):
     i = 0
@@ -250,8 +233,8 @@ def add_cylinder(polygons, cx, cy, cz, r, height, step):
         z1 = r * math.sin(2*math.pi * theta) + cz
         i += 1
         theta = float(i)/step
-        x2 = r * math.cos(2*math.pi * t) + cx
-        z2 = r * math.sin(2*math.pi * t) + cz
+        x2 = r * math.cos(2*math.pi * theta) + cx
+        z2 = r * math.sin(2*math.pi * theta) + cz
 
         #lateral surface:
         add_polygon(polygons, x1, cy + height/2, z1, x2, cy - height/2, z2, x1, cy - height/2, z1)
@@ -259,7 +242,7 @@ def add_cylinder(polygons, cx, cy, cz, r, height, step):
 
         #lids:
         add_polygon(polygons, x1, cy - height/2, z1, x2, cy - height/2, z2, cx, cy - height/2, cz)
-        add_polygon(polygons, x1, cy + height/2, z1, cx, cy, cz, x2, cy + height/2, z2)
+        add_polygon(polygons, x1, cy + height/2, z1, cx, cy + height/2, cz, x2, cy + height/2, z2)
 
 def add_torus(polygons, cx, cy, cz, r0, r1, step ):
     points = generate_torus(cx, cy, cz, r0, r1, step)
