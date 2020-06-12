@@ -305,6 +305,25 @@ def generate_torus( cx, cy, cz, r0, r1, step ):
     return points
 
 
+def add_mesh(polygons, command):
+    object = open(command + '.obj').read().split("\n")
+    vertices = []
+    faces = []
+    for i in range(len(object)):
+        if(len(object[i]) > 0):
+            if(object[i][0] == 'f'):
+                thisface = object[i].split(" ")[1:]#1 indexed
+                face = [stuff.split("/")[0] for stuff in thisface]
+                faces.append([-1 + int(i) for i in face])
+            if(object[i][0] == 'v'):
+                points = object[i].split(" ")[1:]
+                vertices.append([float(point) for point in points])
+    for f in faces:
+        add_polygon(polygons, vertices[f[0]][0], vertices[f[0]][1], vertices[f[0]][2], vertices[f[1]][0], vertices[f[1]][1], vertices[f[1]][2], vertices[f[2]][0], vertices[f[2]][1], vertices[f[2]][2])
+        if(len(f) == 4):
+            add_polygon(polygons, vertices[f[0]][0], vertices[f[0]][1], vertices[f[0]][2], vertices[f[2]][0], vertices[f[2]][1], vertices[f[2]][2], vertices[f[3]][0], vertices[f[3]][1], vertices[f[3]][2])
+
+
 def add_circle( points, cx, cy, cz, r, step ):
     x0 = r + cx
     y0 = cy
