@@ -174,6 +174,16 @@ def run(filename):
                 tmp = []
                 reflect = '.white'
 
+            elif c == 'pyramid':
+                if command['constants']:
+                    reflect = command['constants']
+                add_pyramid(tmp,
+                          args[0], args[1], args[2], args[3], args[4])
+                matrix_mult( stack[-1], tmp )
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
             elif c == 'line':
                 add_edge(tmp,
                          args[0], args[1], args[2], args[3], args[4], args[5])
