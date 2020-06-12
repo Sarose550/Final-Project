@@ -153,7 +153,6 @@ def run(filename):
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
                 reflect = '.white'
-
             elif c == 'cone':
                 if command['constants']:
                     reflect = command['constants']
@@ -163,7 +162,6 @@ def run(filename):
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
                 reflect = '.white'
-
             elif c == 'cylinder':
                 if command['constants']:
                     reflect = command['constants']
@@ -173,7 +171,6 @@ def run(filename):
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
                 reflect = '.white'
-
             elif c == 'pyramid':
                 if command['constants']:
                     reflect = command['constants']
@@ -183,7 +180,6 @@ def run(filename):
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
                 reflect = '.white'
-
             elif c == 'line':
                 add_edge(tmp,
                          args[0], args[1], args[2], args[3], args[4], args[5])
@@ -219,6 +215,15 @@ def run(filename):
                     tmp = make_rotZ(theta)
                 matrix_mult( stack[-1], tmp )
                 stack[-1] = [ x[:] for x in tmp]
+                tmp = []
+            elif c == 'mesh':
+                if command['constants']:
+                    reflect = command['constants'] if command['constants'] != ':' else '.white'
+                add_mesh(tmp, command['cs'])
+                matrix_mult(stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
                 tmp = []
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
