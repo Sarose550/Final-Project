@@ -61,11 +61,42 @@ def first_pass( commands ):
 def second_pass( commands, num_frames ):
     knobcommands = []
     frames = [ {} for i in range(num_frames) ]
+
+    knobvals = {}
+    saved_knobs = {}
     for instruction in commands:
       if instruction['op'] == 'vary':
+        print(instruction)
         inc = (instruction['args'][3] - instruction['args'][2]) / (instruction['args'][1] - instruction['args'][0])
         for i in range(int(instruction['args'][0]), int(instruction['args'][1])+1):
           frames[i][instruction['knob']] = instruction['args'][2] + inc * (i - instruction['args'][0])
+
+      if instruction['op'] == 'set':
+        knobvals[instruction['knob']] = instruction['args'][0]
+
+      if instruction['op'] == 'save_knobs':
+        saved_knobs[instruction['knob_list']] = knobvals.copy()
+
+      if instruction['op'] == 'tween':
+        k1 = saved_knobs[instruction['knob_list0']]
+        k2 = saved_knobs[instruction['knob_list1']]
+
+        for name in knobvals:
+          if name not in k1 or name not in k2:
+            continue
+
+          commands.append({
+            'op': 'vary',
+            'args': [
+              instruction['args'][0],
+              instruction['args'][1],
+              k1[name],
+              k2[name],
+            ],
+            'knob': name
+            })
+
+
     return frames
 
 
@@ -106,7 +137,7 @@ def run(filename):
     for frame in range(int(num_frames)):
         if num_frames > 1:
             for knob in frames[frame]:
-                symbols[knob][1] = frames[frame][knob]
+                symbols[knob] = ['knob', frames[frame][knob]]
         tmp = new_matrix()
         ident( tmp )
 
