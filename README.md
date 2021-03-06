@@ -3,15 +3,13 @@ Sam Rosenstrauch and Jude Rizzo
 
 <b> Features to be added: </b>
 
--Mesh
 
--New primitive shapes
-
--Tween
-
--More options to the vary command (different parametrizations such as log, exp, ect.)
-
--Save knob
+<ol>
+  <li>Mesh</li>
+  <li>New Primitive Shapes</li>
+  <li>More options to the vary command (different parametrizations such as log, exp, ect.)</li>
+  <li>Save knob</li>
+</ol>
 
 Install imagemagick before running.
 
