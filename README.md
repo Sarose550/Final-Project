@@ -7,7 +7,7 @@ Install imagemagick before running.
 
 To run from terminal, enter "python main.py face.mdl" or "python main.py robot.mdl". 
 
-When running on Mac or Linux, in display.py, on line 86, change "imdisplay" to "display."
+When running on Mac or Linux, in display.py, on line 86, change "imdisplay" to "display." Note: on Mac, you may need to run this under XQuartz.
 
 <b> Features to be added: </b>
 
