@@ -5,7 +5,6 @@ This is our final project in Computer Graphics. It showcases several features of
 
 <b> Features to be added: </b>
 
-
 <ol>
   <li>Mesh</li>
   <li>New Primitive Shapes</li>
