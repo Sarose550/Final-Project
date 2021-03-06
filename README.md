@@ -1,5 +1,5 @@
 # Final-Project
-Sam Rosenstrauch and Jude Rizzo
+by Sam Rosenstrauch and Jude Rizzo
 
 This is our final project in Computer Graphics. It showcases several features of a graphics engine written in Python throughout the spring semester of 2020. We used scanline conversion to draw polygons in three dimensions, and a z-buffer to create depth perception. Our lighting included several features, such as ambient reflection, diffuse reflection, as well as specular lighting.
 
